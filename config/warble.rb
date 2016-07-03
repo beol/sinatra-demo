@@ -13,6 +13,7 @@ Warbler::Config.new do |config|
 
   # Application directories to be included in the webapp.
   # config.dirs = %w(app config db lib log script vendor tmp)
+  config.dirs = %w()
 
   # Additional files/directories to include, above those in config.dirs
   # config.includes = FileList["db"]
@@ -176,9 +177,14 @@ Warbler::Config.new do |config|
   # that you fix these values when running a production server!
   # If you're using threadsafe! mode, you probably don't want to set these values,
   # since 1 runtime(default for threadsafe mode) will be enough.
-  # config.webxml.jruby.min.runtimes = 2
-  # config.webxml.jruby.max.runtimes = 4
+  config.webxml.jruby.min.runtimes = 1
+  config.webxml.jruby.max.runtimes = 1
 
   # JNDI data source name
   # config.webxml.jndi = 'jdbc/rails'
+
+  config.webxml.jruby.rack.logging = "slf4j"
+
+  config.webxml.foo = "bar"
+  config.webxml.configRoot = '${catalina.base}/conf'
 end

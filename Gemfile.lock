@@ -35,6 +35,7 @@ PLATFORMS
   java
 
 DEPENDENCIES
+  bundler
   loggr
   sinatra
   sinatra-contrib
