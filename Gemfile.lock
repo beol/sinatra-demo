@@ -25,6 +25,10 @@ GEM
       sinatra (~> 1.4.0)
       tilt (>= 1.3, < 3)
     tilt (2.0.5)
+    trinidad (1.5.0.B2)
+      jruby-rack (>= 1.1.18, < 1.3)
+      trinidad_jars (>= 1.5, < 1.7)
+    trinidad_jars (1.5.1)
     warbler (2.0.3)
       jruby-jars (>= 9.0.0.0)
       jruby-rack (>= 1.1.1, < 1.3)
@@ -35,11 +39,14 @@ PLATFORMS
   java
 
 DEPENDENCIES
-  bundler
   loggr
   sinatra
   sinatra-contrib
+  trinidad (~> 1.5.0.B2)
   warbler
+
+RUBY VERSION
+   ruby 2.3.0p0 (jruby 9.1.2.0)
 
 BUNDLED WITH
    1.12.5

@@ -1,0 +1,8 @@
+---
+port: 9292
+root_dir: .
+context_path: /foo
+public: public
+jruby_compat_version: 2.0
+jruby_min_runtimes: 1
+jruby_max_runtimes: 1

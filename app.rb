@@ -1,23 +1,23 @@
-Bundler.require
-
-require 'logger'
-require 'sinatra/reloader'
-require 'loggr/slf4j/jars'
-
-Loggr::SLF4J::Jars.require_slf4j_jars!
-
 class SinatraDemo < Sinatra::Base
-  configure do
-    enable :dump_errors
+  def app_logger
+    @app_logger ||= ::LoggerFactory.logger('com.laksmana.' + self.class.name, 
+                                           to: File.join(settings.root, 'log', 'application.log'), 
+                                           level: settings.development? ? ::Loggr::Severity::DEBUG : ::Loggr::Severity::INFO) 
+  end
 
-    LoggerFactory.adapter = production? ? :slf4j : :base
-    $logger = LoggerFactory.logger('com.laksmana.sinatra.app', to: $stderr, level: Logger::Severity::DEBUG)
-    $error_logger = $stderr
+  alias_method :logger, :app_logger
+
+  configure do
+    disable :dump_errors
+    enable :static
+    set :logging, nil
+
+    ::LoggerFactory.adapter = production? ? :slf4j : :base
 
     if $servlet_context
       set :config, Proc.new { $servlet_context.getInitParameter('configRoot') }
     else
-      set :config, Proc.new { File.expand_path('../config', __FILE__) }
+      set :config, Proc.new { File.join(settings.root, 'config') }
     end
   end
 
@@ -25,22 +25,16 @@ class SinatraDemo < Sinatra::Base
     register Sinatra::Reloader
   end
 
-  configure :production do
-    set :logging, nil
+  get '/foo' do
+    send_file File.join(settings.public_folder, 'index.html')
   end
 
-  before do
-    env['rack.logger'] = $logger
-    env['rack.errors'] = $error_logger
-  end
+  error do
+    e = env['sinatra.error']
 
-  get '/' do
-    logger.info settings.config
-    logger.debug self.class
-    logger.debug $servlet_context.getInitParameter('foo') if $servlet_context
-    logger.debug $servlet_context.getServerInfo() if $servlet_context
-    raise
-    'hello world!'
+    logger.error "#{e.class} - #{e.message}"
+    e.backtrace.each { |line| logger.error line } if e.respond_to?(:backtrace)
+
+    halt 500
   end
 end
-

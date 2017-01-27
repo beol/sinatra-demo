@@ -13,7 +13,7 @@ Warbler::Config.new do |config|
 
   # Application directories to be included in the webapp.
   # config.dirs = %w(app config db lib log script vendor tmp)
-  config.dirs = %w()
+  config.dirs = %w(public)
 
   # Additional files/directories to include, above those in config.dirs
   # config.includes = FileList["db"]
@@ -46,7 +46,7 @@ Warbler::Config.new do |config|
 
   # An array of Bundler groups to avoid including in the war file.
   # Defaults to ["development", "test", "assets"].
-  # config.bundle_without = []
+  config.bundle_without = %w(development)
 
   # Other gems to be included. If you don't use Bundler or a gemspec
   # file, you need to tell Warbler which gems your application needs
@@ -82,7 +82,7 @@ Warbler::Config.new do |config|
 
   # Name of the archive (without the extension). Defaults to the basename
   # of the project directory.
-  # config.jar_name = "mywar"
+  config.jar_name = "sinatra-demo"
 
   # File extension for the archive. Defaults to either 'jar' or 'war'.
   # config.jar_extension = "jar"
@@ -146,6 +146,7 @@ Warbler::Config.new do |config|
   # Files to be included in the root of the webapp.  Note that files in public
   # will have the leading 'public/' part of the path stripped during staging.
   # config.public_html = FileList["public/**/*", "doc/**/*"]
+  config.public_html = FileList["public/**/*"]
 
   # Pathmaps for controlling how public HTML files are copied into the .war
   # config.pathmaps.public_html = ["%{public/,}p"]
@@ -183,8 +184,7 @@ Warbler::Config.new do |config|
   # JNDI data source name
   # config.webxml.jndi = 'jdbc/rails'
 
-  config.webxml.jruby.rack.logging = "slf4j"
+  config.webxml.jruby.rack.logging = :slf4j
 
-  config.webxml.foo = "bar"
   config.webxml.configRoot = '${catalina.base}/conf'
 end

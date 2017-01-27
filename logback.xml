@@ -18,11 +18,11 @@
         </encoder>
     </appender>
 
-    <logger name="com.laksmana.sinatra.app" level="DEBUG" additivity="false">
+    <logger name="com.laksmana.SinatraDemo" level="INFO" additivity="false">
         <appender-ref ref="APP" />
     </logger>
 
-    <root level="debug">
+    <root level="INFO">
         <appender-ref ref="STDOUT" />
     </root>
 </configuration>
