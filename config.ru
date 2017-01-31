@@ -1,4 +1,4 @@
-#\ -s trinidad -o 0.0.0.0
+#\ -s trinidad
 require 'bundler'
 
 Bundler.require

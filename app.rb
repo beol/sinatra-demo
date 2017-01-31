@@ -23,10 +23,16 @@ class SinatraDemo < Sinatra::Base
 
   configure :development do
     register Sinatra::Reloader
+
+    enable :logging
   end
 
-  get '/foo' do
+  get '/hello' do
     send_file File.join(settings.public_folder, 'index.html')
+  end
+
+  not_found do
+    send_file File.join(settings.public_folder, '404.html'), { status: 404 }
   end
 
   error do
@@ -35,6 +41,6 @@ class SinatraDemo < Sinatra::Base
     logger.error "#{e.class} - #{e.message}"
     e.backtrace.each { |line| logger.error line } if e.respond_to?(:backtrace)
 
-    halt 500
+    send_file File.join(settings.public_folder, '500.html'), { status: 500 }
   end
 end
