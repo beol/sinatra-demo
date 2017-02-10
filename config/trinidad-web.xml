@@ -10,6 +10,18 @@
       <param-name>configRoot</param-name>
       <param-value>${catalina.base}/config</param-value>
   </context-param>
+  <context-param>
+      <param-name>jruby.compat.version</param-name>
+      <param-value>2.0</param-value>
+  </context-param>
+  <context-param>
+      <param-name>jruby.min.runtimes</param-name>
+      <param-value>1</param-value>
+  </context-param>
+  <context-param>
+      <param-name>jruby.max.runtimes</param-name>
+      <param-value>1</param-value>
+  </context-param>
 
   <filter>
       <filter-name>RackFilter</filter-name>

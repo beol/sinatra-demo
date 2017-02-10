@@ -123,7 +123,7 @@ Warbler::Config.new do |config|
   # Alternatively, this option can be set to a regular expression, which will
   # act as a jar selector -- only jar files that match the pattern will be
   # included in the archive.
-  # config.move_jars_to_webinf_lib = false
+  config.move_jars_to_webinf_lib = true
 
   # === War files only below here ===
 
@@ -146,7 +146,7 @@ Warbler::Config.new do |config|
   # Files to be included in the root of the webapp.  Note that files in public
   # will have the leading 'public/' part of the path stripped during staging.
   # config.public_html = FileList["public/**/*", "doc/**/*"]
-  config.public_html = FileList["public/**/*"]
+  # config.public_html = FileList["public/**/*"]
 
   # Pathmaps for controlling how public HTML files are copied into the .war
   # config.pathmaps.public_html = ["%{public/,}p"]
@@ -181,10 +181,10 @@ Warbler::Config.new do |config|
   config.webxml.jruby.min.runtimes = 1
   config.webxml.jruby.max.runtimes = 1
 
+  config.webxml.jruby.compat.version = 2.0
+
   # JNDI data source name
   # config.webxml.jndi = 'jdbc/rails'
-
-  config.webxml.jruby.rack.logging = :slf4j
 
   config.webxml.configRoot = '${catalina.base}/conf'
 end

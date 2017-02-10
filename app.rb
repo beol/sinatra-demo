@@ -28,6 +28,7 @@ class SinatraDemo < Sinatra::Base
   end
 
   get '/hello' do
+    logger.debug request.path
     send_file File.join(settings.public_folder, 'index.html')
   end
 
