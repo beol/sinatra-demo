@@ -19,6 +19,7 @@ class SinatraDemo < Sinatra::Base
   configure do
     enable :dump_errors
     enable :static
+    set :root, Proc.new { File.expand_path('../..', __FILE__) }
     set :public_folder, Proc.new { $servlet_context && !production? ? File.join(settings.root, 'public') : $servlet_context.getRealPath('') }
 
     set :logging, nil
@@ -36,7 +37,7 @@ class SinatraDemo < Sinatra::Base
     logger.debug "\n#{request.to_yaml}"
   end
 
-  get '/foo' do
+  get '/index' do
     send_file File.join(settings.public_folder, 'index.html')
   end
 

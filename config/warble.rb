@@ -13,11 +13,10 @@ Warbler::Config.new do |config|
 
   # Application directories to be included in the webapp.
   # config.dirs = %w(app config db lib log script vendor tmp)
-  config.dirs = %w(public)
+  config.dirs = %w(controllers helpers public view)
 
   # Additional files/directories to include, above those in config.dirs
   # config.includes = FileList["db"]
-  config.includes = FileList['app.class']
 
   # Additional files/directories to exclude
   # config.excludes = FileList["lib/tasks/*"]
@@ -97,7 +96,7 @@ Warbler::Config.new do |config|
   # When using the 'compiled' feature and specified, only these Ruby
   # files will be compiled. Default is to compile all \.rb files in
   # the application.
-  config.compiled_ruby_files = FileList['app.rb']
+  # config.compiled_ruby_files = FileList['app.rb']
 
   # Determines if ruby files in supporting gems will be compiled.
   # Ignored unless compile feature is used.

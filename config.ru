@@ -9,6 +9,6 @@ if ENV['RACK_ENV'] == 'production'
   Loggr::SLF4J::Jars.require_slf4j_jars!
 end
 
-require_relative 'app'
+Dir["#{File.expand_path('..', __FILE__)}/{helpers,controllers}/*.rb"].each { |file| require file }
 
-run SinatraDemo.new
+map('/') { run SinatraDemo }
