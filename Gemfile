@@ -6,7 +6,6 @@ group :development do
   gem 'warbler', require: false
 end
 
-gem 'loggr', require: ['loggr', 'loggr/severity', 'loggr/slf4j/jars']
+gem 'loggr', require: ['loggr', 'loggr/severity']
 gem 'sinatra', require: ['sinatra/base']
-gem 'sinatra-contrib', require: nil
 
