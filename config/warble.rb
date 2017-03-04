@@ -9,7 +9,7 @@ Warbler::Config.new do |config|
   # - *executable*: embed a web server and make the war executable
   # - *runnable*: allows to run bin scripts e.g. `java -jar my.war -S rake -T`
   # - *compiled*: compile .rb files to .class files
-  # config.features = %w(gemjar)
+  config.features = %w(gemjar compiled)
 
   # Application directories to be included in the webapp.
   # config.dirs = %w(app config db lib log script vendor tmp)
@@ -17,7 +17,7 @@ Warbler::Config.new do |config|
 
   # Additional files/directories to include, above those in config.dirs
   # config.includes = FileList["db"]
-  config.includes = FileList['app.rb']
+  config.includes = FileList['app.class']
 
   # Additional files/directories to exclude
   # config.excludes = FileList["lib/tasks/*"]
@@ -46,7 +46,7 @@ Warbler::Config.new do |config|
 
   # An array of Bundler groups to avoid including in the war file.
   # Defaults to ["development", "test", "assets"].
-  config.bundle_without = %w(development)
+  # config.bundle_without = %w()
 
   # Other gems to be included. If you don't use Bundler or a gemspec
   # file, you need to tell Warbler which gems your application needs
@@ -75,14 +75,14 @@ Warbler::Config.new do |config|
   # Array of regular expressions matching relative paths in gems to be
   # excluded from the war. Defaults to empty, but you can set it like
   # below, which excludes test files.
-  # config.gem_excludes = [/^(test|spec)\//]
+  config.gem_excludes = [/^(test|spec|bin|man|examples)\//]
 
   # Pathmaps for controlling how application files are copied into the archive
   # config.pathmaps.application = ["WEB-INF/%p"]
 
   # Name of the archive (without the extension). Defaults to the basename
   # of the project directory.
-  config.jar_name = "sinatra-demo"
+  # config.jar_name = ""
 
   # File extension for the archive. Defaults to either 'jar' or 'war'.
   # config.jar_extension = "jar"
@@ -97,14 +97,14 @@ Warbler::Config.new do |config|
   # When using the 'compiled' feature and specified, only these Ruby
   # files will be compiled. Default is to compile all \.rb files in
   # the application.
-  # config.compiled_ruby_files = FileList['app/**/*.rb']
+  config.compiled_ruby_files = FileList['app.rb']
 
   # Determines if ruby files in supporting gems will be compiled.
   # Ignored unless compile feature is used.
   # config.compile_gems = false
 
   # When set it specify the bytecode version for compiled class files
-  # config.bytecode_version = "1.6"
+  config.bytecode_version = "1.8"
 
   # When set to true, Warbler will override the value of ENV['GEM_HOME'] even it
   # has already been set. When set to false it will use any existing value of
@@ -184,7 +184,7 @@ Warbler::Config.new do |config|
   # JNDI data source name
   # config.webxml.jndi = 'jdbc/rails'
 
-  config.webxml.jruby.rack.logging = :slf4j
+  config.webxml.jruby.rack.logging = :stdout
 
   config.webxml.configRoot = '${catalina.base}/conf'
 end
