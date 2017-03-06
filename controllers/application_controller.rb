@@ -1,4 +1,4 @@
-class SinatraDemo < Sinatra::Base
+class ApplicationController < Sinatra::Base
   def app_logger
     @app_logger ||= ::LoggerFactory.logger("com.laksmana.#{self.class.name}", 
                                            to: $stderr,
@@ -37,17 +37,13 @@ class SinatraDemo < Sinatra::Base
     logger.debug "\n#{request.to_yaml}"
   end
 
-  get '/index' do
-    send_file File.join(settings.public_folder, 'index.html')
-  end
-
   error do
     log_exception
 
-    halt 500
+    send_file File.join(settings.public_folder, '500.html'), status: 500
   end
 
   not_found do
-    halt 404
+    send_file File.join(settings.public_folder, '404.html'), status: 404
   end
 end
