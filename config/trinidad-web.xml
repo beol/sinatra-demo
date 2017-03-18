@@ -6,6 +6,11 @@
 
 
   <context-param>
+      <param-name>org.jruby.rack.logging</param-name>
+      <param-value>stdout</param-value>
+  </context-param>
+
+  <context-param>
       <param-name>configRoot</param-name>
       <param-value>${catalina.base}/config</param-value>
   </context-param>

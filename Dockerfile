@@ -19,7 +19,9 @@ RUN curl -sS \
     && \
     ln -s latest default \
     && \
-    update-alternatives --install /usr/bin/java java /usr/java/default/jre/bin/java 1
+    update-alternatives --install /usr/bin/java java /usr/java/default/jre/bin/java 1 \
+    && \
+    java -Xshare:dump
 ENV JAVA_HOME /usr/java/default
 
 WORKDIR /opt
@@ -39,7 +41,12 @@ RUN mkdir -p jruby-9.1.2.0/etc \
 RUN gem install bundler
 ENV BUNDLE_SILENCE_ROOT_WARNING=1
 RUN mkdir -p /usr/src/app
-WORKDIR /usr/src/app
-COPY . ./
+COPY . /usr/src/app/
 
-RUN bundle install --binstubs --deployment --verbose
+WORKDIR /usr/src/app
+RUN bundle install --binstubs --deployment --local
+
+ENV RACK_ENV production
+EXPOSE 9292
+VOLUME /usr/src/app/logs
+CMD ["jruby", "-G", "-S", "bin/rackup"]
